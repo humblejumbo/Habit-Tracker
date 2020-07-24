@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Habit Tracker</title>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="/app.css">
+</head>
+
+<body>
+    <div class="ui inverted menu">
+        <div class="ui container">
+            <div class="header item">
+                <i class="file text outline icon"></i>
+                <a href="/daily"> Habit Tracker</a>
+            </div>
+            <div class="item"><a href="/new">New Habit</a></div>
+            <div class="right menu">
+                <div class="item">Login</div>
+                <div class="item">SignUp</div>
+            </div>
+        </div>
+    </div>
+
+<div class="ui main text container segment">
+    <div class="ui huge header">
+        Create a Habit
+    </div>
+    <form class="ui form" action="/daily" method="post">
+        <div class="field">
+            <label>Title</label>
+            <input type="text" name="title" placeholder="Title">
+        </div>
+        
+        <div class="field">
+            <label>Description</label>
+            <textarea name="description" placeholder="Content goes here"></textarea>
+        </div>
+
+        <button class="ui primary large inverted button">Create</button>
+
+    </form>
+</div>
+
+</body>
+</html>

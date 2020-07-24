@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Habit Tracker</title>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="/app.css">
+</head>
+
+<body>
+    <div class="ui inverted menu">
+        <div class="ui container">
+            <div class="header item">
+                <i class="file text outline icon"></i>
+                <a href="#"> Habit Tracker</a>
+            </div>
+            <div class="item"><a href="/new">New Habit</a></div>
+            <div class="right menu">
+                <div class="item">Login</div>
+                <div class="item">SignUp</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR ENDS -->
+
+<div class="ui main text container">
+    <div class="ui huge header" id="stories">Habits</div>
+    <div class="ui top  attached segment">
+        <div class="ui divided items">
+            <% habits.forEach(function(habit){ %>
+            <div class="item">
+
+                <div class="content">
+                    <h1><%=habit.title%></h1>
+                    
+                    <div class="meta">
+                        <span>Created at <%= habit.dateCreated.toDateString() %></span>
+                    </div>
+                    <div class="description">
+                        <p><%= habit.description %></p>
+                    </div>
+                    <div class="ui form">
+
+                        <div class="inline fields">
+                            <label for="action">Select action:</label>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="action" class="done" tabindex="0" class="hidden">
+                                    <label>Done</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="action" class="fail" tabindex="0" class="hidden">
+                                    <label>Failed</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="action" class="skip" tabindex="0" class="hidden">
+                                    <label>Skip</label>
+                                </div>
+                            </div>
+                            <button type="button" class="ui small teal button actionTaken">Submit</button>
+                        </div>
+    
+                    </div>
+                    <div class="extra">
+                        <a class="ui floated basic olive button">
+                            Weekly Stats
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+        </div>
+    </div>
+</div>
+
+<script>    
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        let done = document.getElementsByClassName('done');
+        let skip = document.getElementsByClassName('skip');
+        let fail = document.getElementsByClassName('fail');
+
+        let habits=<%-JSON.stringify(habits) %>
+
+        for(let i=0;i<habits.length;i++){
+             if (habits[i].actionToday.done === true) {
+                done[i].checked=true;
+            }
+            else if (habits[i].actionToday.skip === true) {
+                skip[i].checked=true;
+            }
+            else
+                fail[i].checked=true;
+
+        };    
+
+    let actionbtns = document.getElementsByClassName('actionTaken');
+    console.log(actionbtns);
+
+    for (let i = 0; i < actionbtns.length; i++) {
+        actionbtns[i].addEventListener('click', function (event) {
+            event.preventDefault();
+            
+            if (done[i].checked) {
+                habits[i].actionToday.done = true;
+                habits[i].actionToday.skip=false;
+                habits[i].actionToday.fail = false;
+                skip[i].checked = false;
+                fail[i].checked = false;
+            }
+            else if (skip[i].checked) {
+                habits[i].actionToday.skip = true;
+                habits[i].actionToday.done = false;
+                habits[i].actionToday.fail = false;
+            }
+            else
+            {
+                habits[i].actionToday.fail = true;
+                habits[i].actionToday.done = false;
+                habits[i].actionToday.skip = false;
+                skip[i].checked=false;
+                done[i].checked=false;
+            }
+            console.log(habits[i].actionToday);   
+        });
+    }
+
+});
+
+</script>
+
+</body>
+</html>
+
