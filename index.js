@@ -13,8 +13,6 @@ app.set('view engine','ejs');
 
 
 mongoose.connect(process.env.DATABASEURL);
-//mongoose.connect('mongodb://imsg:shubham12@ds147487.mlab.com:47487/habiter');
-
 
 
 app.get('/',function(req,res)
